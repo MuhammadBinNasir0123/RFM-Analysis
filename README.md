@@ -1,70 +1,74 @@
-# 📊 Sales Dashboard in Excel  
+# 🎯 RFM Customer Segmentation Analysis  
 
-An interactive Excel dashboard that provides a **clear snapshot of business performance** and transforms raw sales data into **actionable insights**.  
-
----
-
-## 🚀 Project Overview  
-This project demonstrates how raw transactional data can be turned into a **dynamic dashboard** using Excel. The dashboard includes KPIs, slicers, and visuals that allow users to interactively explore business performance across multiple dimensions.  
+## 📊 Project Overview  
+This project applies **RFM (Recency, Frequency, Monetary)** modeling on retail transactional data to segment customers based on their purchasing behavior. The goal is to uncover distinct customer groups and recommend **targeted marketing strategies** for retention and growth.  
 
 ---
 
-## ✨ Features  
+## 🚀 Key Insights  
+- Analyzed **5,860 customers** from **800,000+ transactions**  
+- Discovered **7 customer segments** using RFM scoring  
+- **Top 5 customers** contributed **$1.9M+ revenue**  
+- Identified **615 high-value customers** at risk of churn  
 
-- **KPIs:**  
-  - Total Sales 💰  
-  - Total Orders 🛒  
-  - Average Order Value 📈  
+---
 
-- **Slicers:**  
-  - Category 🏷️  
-  - Region 🌍  
-  - Segment 👥  
+## 📈 Customer Segments Discovered  
 
-- **Charts & Visuals:**  
-  - Sales by Top Cities 🏙️  
-  - Sales by Segment 📊  
-  - Monthly Sales Trends 📅  
+| Segment             | Customers | Priority   | Description |
+|---------------------|-----------|------------|-------------|
+| At Risk Customers   | 1,470     | 🔴 High    | Recent but infrequent buyers needing re-engagement |
+| Potential Loyalists | 1,430     | 🟡 Medium  | Moderate recency and frequency with growth potential |
+| Lost Customers      | 842       | ⚫ Low     | Inactive customers requiring win-back campaigns |
+| Champions           | 720       | 🟢 High    | Best customers: recent, frequent, high spenders |
+| Can't Lose Them     | 615       | 🔴 Critical| High-value customers at risk of churn |
+| Loyal Customers     | 506       | 🟡 Medium  | Frequent buyers but not necessarily recent |
+| New Customers       | 123       | 🟡 Medium  | Recently acquired customers |
 
 ---
 
 ## 📊 Visualizations Created  
-- **KPI Cards** → Quick snapshot of Total Sales, Orders, and AOV  
-- **Sales by Top Cities** → Bar chart of best-performing cities  
-- **Sales by Segment** → Vertical bar chart comparing customer segments  
-- **Monthly Trends** → Line chart for revenue growth patterns  
-- **Interactive Filters** → Slicers to drill down into specific markets  
+- **Segment Distribution** → Horizontal bar chart of customer groups  
+- **Average RFM Scores** → Compare Recency, Frequency, and Monetary metrics  
+- **RFM Heatmap** → Spending patterns across Recency/Frequency matrix  
+- **Distribution Charts** → Histograms for R, F, M values  
+- **Top Customers** → Highest revenue contributors  
 
 ---
 
-## 🎯 Key Benefits  
-
-- Spot **top-performing markets and segments** in seconds  
-- Track **monthly sales patterns** effortlessly  
-- Enable **real-time exploration** with slicer-driven interactivity  
-- Deliver **data-driven decision support** without extra tools  
+## 💡 Marketing Strategies  
+- **Champions** → VIP treatment, exclusive offers, premium loyalty rewards  
+- **At Risk Customers** → Win-back campaigns with 15–20% discounts  
+- **Can't Lose Them** → Personal outreach + retention packages  
+- **New Customers** → Welcome series and onboarding journey  
 
 ---
 
-## 🛠️ Tools & Skills Demonstrated  
-
-- **Excel**: Pivot Tables, Pivot Charts, Slicers  
-- **Data Visualization**: Business KPIs & Trend Analysis  
-- **BI Reporting**: Turning raw data into a visual story  
+## 🛠️ Tools & Dependencies  
+- Python 3.7+  
+- pandas | numpy  
+- matplotlib | seaborn  
 
 ---
 
 ## 🎯 Business Impact  
-This dashboard enables:  
-- Faster **sales performance reviews**  
-- Easy **comparison of categories, regions, and segments**  
-- **Executive-friendly reporting** without coding  
-- A reusable framework for **future datasets**  
+This segmentation provides actionable insights for:  
+- Retaining **high-value customers**  
+- Targeting **at-risk customers** before churn  
+- Optimizing **marketing spend** with precision  
+- Enhancing **customer lifecycle management**  
 
 ---
 
-## 💡 Notes  
+## 🛠️ Technical Implementation  
 
-- Fully interactive in Excel (no add-ons required)  
-- Clean, beginner-friendly design with business usability in mind  
-- Can be adapted to **any sales dataset**  
+```python
+# RFM Calculation
+rfm = df_clean.groupby('Customer ID').agg({
+    'InvoiceDate': lambda x: (snapshot_date - x.max()).days,  # Recency
+    'Invoice': 'nunique',                                    # Frequency
+    'TotalSales': 'sum'                                      # Monetary
+}).reset_index()
+
+rfm.columns = ['CustomerID', 'Recency', 'Frequency', 'Monetary']
+
