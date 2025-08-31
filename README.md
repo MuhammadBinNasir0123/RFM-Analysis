@@ -60,9 +60,7 @@ This segmentation provides actionable insights for:
 
 ---
 
-## 🛠️ Technical Implementation  
-
-```python
+## 🛠️ Technical Implementation
 # RFM Calculation
 rfm = df_clean.groupby('Customer ID').agg({
     'InvoiceDate': lambda x: (snapshot_date - x.max()).days,  # Recency
@@ -71,4 +69,18 @@ rfm = df_clean.groupby('Customer ID').agg({
 }).reset_index()
 
 rfm.columns = ['CustomerID', 'Recency', 'Frequency', 'Monetary']
+
+
+---
+
+
+## 📂 Project Structure  
+
+```bash
+├── Customer_Segmentation_RFM_Analysis.py   # Main Python script
+├── README.md                               # Project documentation
+├── RFM Analysis Visuals (Page 1).png       # Visualizations page 1
+├── RFM Analysis Visuals (Page 2).png       # Visualizations page 2
+
+---
 
