@@ -84,5 +84,5 @@ rfm.columns = ['CustomerID', 'Recency', 'Frequency', 'Monetary']
 ├── RFM Analysis Visuals (Page 1).png       # Visualizations page 1
 ├── RFM Analysis Visuals (Page 2).png       # Visualizations page 2
 
----
+
 
