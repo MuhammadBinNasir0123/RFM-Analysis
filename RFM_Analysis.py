@@ -17,7 +17,7 @@ import seaborn as sns
 
 # Setting up a clean style for plots (so visuals are easy to read)
 sns.set_style("whitegrid")
-print("✅ All libraries imported successfully!")
+print(" All libraries imported successfully!")
 
 # =============================================================================
 # STEP 1: LOAD AND EXPLORE THE DATA
@@ -29,10 +29,10 @@ file_path = 'Online_Retail.csv'
 
 try:
     df = pd.read_csv(file_path, encoding='iso-8859-1')
-    print("✅ Dataset loaded successfully!")
+    print(" Dataset loaded successfully!")
     print(f"   - Shape: {df.shape[0]} rows and {df.shape[1]} columns")
 except FileNotFoundError:
-    print("❌ File not found! Please check the file path.")
+    print(" File not found! Please check the file path.")
     print("   Current file path:", file_path)
     exit()
 
@@ -71,7 +71,7 @@ df_clean['InvoiceDate'] = pd.to_datetime(df_clean['InvoiceDate'], format='%d/%m/
 # Drop rows where date conversion failed
 failed_dates = df_clean['InvoiceDate'].isnull().sum()
 if failed_dates > 0:
-    print(f"   ⚠️  {failed_dates} invalid dates dropped")
+    print(f"   ⚠  {failed_dates} invalid dates dropped")
     df_clean = df_clean.dropna(subset=['InvoiceDate'])
 
 print(" Data cleaned!")
@@ -95,7 +95,7 @@ rfm = df_clean.groupby('Customer ID').agg({
 })
 
 rfm.columns = ['Recency', 'Frequency', 'Monetary']
-print(f"✅ RFM metrics calculated for {rfm.shape[0]} customers!")
+print(f" RFM metrics calculated for {rfm.shape[0]} customers!")
 
 # Overview of the metrics
 print("\nRFM Summary Stats:")
@@ -136,7 +136,7 @@ rfm['RFM_Segment'] = (
     rfm['M_Score'].astype(int).astype(str)
 )
 
-print("✅ Scoring done!")
+print(" Scoring done!")
 print("\nScore Distributions:")
 print("Recency:", rfm['R_Score'].value_counts().sort_index().to_dict())
 print("Frequency:", rfm['F_Score'].value_counts().sort_index().to_dict())
@@ -175,7 +175,7 @@ def get_segment(rfm_row):
 rfm['Customer_Group'] = rfm.apply(get_segment, axis=1)
 segment_counts = rfm['Customer_Group'].value_counts()
 
-print("✅ Customers segmented!")
+print(" Customers segmented!")
 print("\nSegment Breakdown:")
 for segment, count in segment_counts.items():
     print(f"   - {segment}: {count} customers ({(count / len(rfm) * 100):.1f}%)")
@@ -198,7 +198,7 @@ suggestions = {
 
 print("=" * 60)
 for segment, count in segment_counts.items():
-    print(f"\n📌 {segment} ({count} customers):")
+    print(f"\n {segment} ({count} customers):")
     print(f"   {suggestions.get(segment, 'General marketing approach')}")
 print("=" * 60)
 
@@ -288,7 +288,7 @@ for i, (bar, value) in enumerate(zip(bars, top_customers['Monetary'])):
 plt.tight_layout()
 plt.subplots_adjust(top=0.95, hspace=0.4, wspace=0.3)
 plt.savefig('rfm_page1_overview.png', dpi=300, bbox_inches='tight', facecolor='white')
-print("✅ Page 1 dashboard saved as 'rfm_page1_overview.png'")
+print(" Page 1 dashboard saved as 'rfm_page1_overview.png'")
 plt.show()
 
 # Drop temporary numeric columns
@@ -361,7 +361,7 @@ ax4.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.subplots_adjust(top=0.95, hspace=0.4, wspace=0.3)
 plt.savefig('rfm_page2_distributions.png', dpi=300, bbox_inches='tight', facecolor='white')
-print("✅ Page 2 dashboard saved as 'rfm_page2_distributions.png'")
+print(" Page 2 dashboard saved as 'rfm_page2_distributions.png'")
 plt.show()
 
 # Clean up numeric helper columns
@@ -373,7 +373,7 @@ rfm = rfm.drop(['R_Score_Num', 'F_Score_Num', 'M_Score_Num'], axis=1)
 # =============================================================================
 print("\n\n STEP 9: Exporting results...")
 rfm.to_csv('rfm_analysis_results.csv')
-print("✅ RFM results saved as 'rfm_analysis_results.csv'")
+print(" RFM results saved as 'rfm_analysis_results.csv'")
 
 print("\n ANALYSIS COMPLETE!")
 print(" Final outputs generated:")
@@ -381,3 +381,4 @@ print(" - rfm_page1_overview.png (Customer overview dashboard)")
 print(" - rfm_page2_distributions.png (RFM heatmap + distributions)")
 print(" - rfm_analysis_results.csv (Full RFM scores & segments)")
 print("\nNext step: Plug these insights into targeted marketing campaigns ")
+
